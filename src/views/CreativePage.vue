@@ -1,147 +1,225 @@
 <template>
-    <div class="creative-page">
-      <!-- Back Button -->
-      <button @click="goBack" class="back-btn">Back to Profile</button>
-  
-      <h1 class="title">My Hobbies</h1>
-      <div class="hobby-list">
-        <div class="hobby-card" v-for="hobby in hobbies" :key="hobby.id">
-          <img :src="hobby.photo" :alt="hobby.name" class="hobby-image" />
-          <h2 class="hobby-name">{{ hobby.name }}</h2>
-          <p class="hobby-description">{{ hobby.description }}</p>
-        </div>
+  <div class="creative-page">
+    <!-- Back Button -->
+    <button @click="goBack" class="back-btn" aria-label="Back to Profile">Back to Profile</button>
+
+    <!-- My Hobbies Title with Background Box -->
+    <div class="title-box">
+      <h1 class="title">Hobby and Interests</h1>
+    </div>
+
+    <!-- Hobby List with Flexbox Layout (2x2 alignment) -->
+    <div class="hobby-list">
+      <div
+        class="hobby-card"
+        v-for="hobby in hobbies"
+        :key="hobby.id"
+        tabindex="0" 
+        aria-label="Hobby card with details"
+      >
+        <img
+          :src="hobby.photo"
+          :alt="hobby.name"
+          class="hobby-image"
+          aria-label="Hobby image"
+        />
+        <h2 class="hobby-name">{{ hobby.name }}</h2>
+        <p class="hobby-description">{{ hobby.description }}</p>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'CreativePage',
-    data() {
-      return {
-        hobbies: [
-          {
-            id: 1,
-            name: 'Basketball',
-            photo: require('/public/basketball.jpg'), // Assuming the image is placed in the assets folder
-            description: 'Love playing basketball because it’s a great way to stay active, challenge yourself, and have fun with friends. The fast-paced nature of the game, combined with teamwork and strategy, offers both mental and physical stimulation, making it an exciting and rewarding experience.',
-          },
-          {
-            id: 2,
-            name: 'Online Games',
-            photo: require('/public/moba.jpg'), // You can replace this with your image URL
-            description: 'Playing online games because it’s also a greate way to have friends, and make use of your free time.',
-          },
-          {
-            id: 3,
-            name: 'Traveling',
-            photo: require('/public/travel.jpg'), // Replace with custom URL if needed
-            description: 'Exploring new places and cultures around the globe.',
-          },
-        ],
-      };
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'CreativePage',
+  data() {
+    return {
+      hobbies: [
+        {
+          id: 1,
+          name: 'Basketball',
+          photo: require('/public/bball.jpg'),
+          description: 'Basketball is a physical game with better sportsmanship.',
+        },
+        {
+          id: 2,
+          name: 'Online Games',
+          photo: require('/public/valo.png'),
+          description: 'Playing Valorant is my stress reliever, but sometimes it can become my stressor.',
+        },
+        {
+          id: 3,
+          name: 'Traveling',
+          photo: require('/public/travel.jpg'),
+          description: 'Exploring different cities in the Philippines.',
+        },
+        {
+          id: 4,
+          name: 'Hangout with friends',
+          photo: require('/public/bilyar.jpg'),
+          description: 'Hanging out with my friends feels like a dream come true since we only met in Valorant.',
+        },
+      ],
+    };
+  },
+  methods: {
+    goBack() {
+      this.$router.push('/portfolio/profile'); // Navigate back to the profile page
     },
-    methods: {
-      goBack() {    
-        this.$router.push('/portfolio/profile'); // Navigate back to the profile page
-      },
-    },
-  };
-  </script>
-  
-  <style scoped>
-  /* Overall Page Layout */
+  },
+};
+</script>
+
+<style scoped>
+/* Overall Page Layout with GIF Background */
+.creative-page {
+  text-align: center;
+  padding: 40px;
+  font-family: 'Poppins', sans-serif;
+  background: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3ZjZTV4Y2Z6amRmdTNiZmw0ZDE4azZyanhqN2VqemUydWg1YjJ2YiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/oLzgl79VN6bbrQUSLe/giphy.gif') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+  position: relative;
+  color: white;
+}
+
+/* Overlay to dim the background for readability */
+.creative-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+  z-index: -1;
+}
+
+/* Title Box Styling (Centered) */
+.title-box {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 15px 25px;
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: 30px;
+  position: absolute;
+  top: 20px; /* Slightly push down from the top */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Proper centering */
+}
+
+.title {
+  font-size: 2.6rem;
+  margin: 0;
+  color: white;
+  font-weight: 700;
+}
+
+/* Hobby List with Flexbox Layout (2x2) */
+.hobby-list {
+  display: flex;
+  flex-wrap: wrap; /* Ensure they wrap into the next line */
+  justify-content: space-evenly; /* Space evenly between the cards */
+  max-width: 900px;
+  margin: 40px auto; /* Centering the cards and adding margin */
+  padding: 0 20px; /* Adding padding around the cards */
+}
+
+/* Hobby Card Styling */
+.hobby-card {
+  width: 45%; /* Making sure cards take up about half the space in each row */
+  margin-bottom: 20px; /* Adding space between the rows */
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+  overflow: hidden;
+}
+
+.hobby-card:hover,
+.hobby-card:focus {
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.hobby-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.hobby-name {
+  font-size: 1.6rem;
+  margin: 15px 0;
+  color: #333;
+  font-weight: 600;
+}
+
+.hobby-description {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+/* Back Button Styling (Top Left) */
+.back-btn {
+  background-color: #3498db; /* Blue matching profile button */
+  color: white;
+  padding: 12px 24px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  position: absolute;
+  top: 20px;
+  left: 20px; /* Adjusting to left */
+}
+
+.back-btn:hover {
+  background-color: #2980b9; /* Matching hover color */
+  transform: translateY(-3px);
+}
+
+.back-btn:active {
+  transform: translateY(2px);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
   .creative-page {
-    text-align: center;
-    padding: 30px;
-    font-family: 'Arial', sans-serif;
-    background-color: #f6f8fa; /* Similar to GitHub's background */
-    max-width: 900px;
-    margin: 50px auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
   }
-  
-  /* Title Styling */
-  .title {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    color: #333;
-    font-weight: 600;
-  }
-  
-  /* Hobby List Styling */
-  .hobby-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-  
+
   .hobby-card {
-    width: 300px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    background-color: white;
+    width: 90%;
+    max-width: 350px;
   }
-  
-  .hobby-card:hover {
-    transform: scale(1.05);
+
+  .title {
+    font-size: 2.2rem;
   }
-  
-  .hobby-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
-  .hobby-name {
-    font-size: 1.5rem;
-    margin: 15px 0;
-    color: #555;
-    font-weight: 600;
-  }
-  
-  .hobby-description {
-    font-size: 1rem;
-    color: #666;
-  }
-  
-  /* Back Button Styling */
+
   .back-btn {
-    background-color: #2b90d9; /* GitHub Blue */
-    color: white;
     padding: 10px 20px;
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    top: 10px; /* Top margin adjustment for mobile */
+    left: 20px;
   }
-  
-  .back-btn:hover {
-    background-color: #277db2; /* Darker blue on hover */
+
+  .hobby-list {
+    justify-content: center; /* Center the cards in mobile view */
   }
-  
-  /* Mobile Responsiveness */
-  @media (max-width: 768px) {
-    .creative-page {
-      padding: 20px;
-    }
-  
-    .hobby-card {
-      width: 100%;
-      max-width: 320px;
-    }
-  
-    .title {
-      font-size: 2rem;
-    }
-  }
-  </style>
-  
+}
+</style>
